@@ -9,8 +9,6 @@ pnpm-debug.log*
 .env.local
 .env.*.local
 
-city.svg
-
 .DS_Store
 .DS_Store?
 ._*
