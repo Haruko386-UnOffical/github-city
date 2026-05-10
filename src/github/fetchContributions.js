@@ -35,10 +35,13 @@ async function fetchContributions() {
         }
     );
 
-    return response.data.data.user
-        .contributionsCollection
-        .contributionCalendar
-        .weeks;
+    const userData = response.data.data.user;
+
+    if (!userData) {
+        throw new Error(`\n Can't find "${username}". \nPlease check if GITHUB_USERNAME is correct and ensure it is a "personal account" rather than an "organization account".`);
+    }
+
+    return userData.contributionsCollection.contributionCalendar.weeks;
 }
 
 export default fetchContributions;
