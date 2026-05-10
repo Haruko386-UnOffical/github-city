@@ -1,0 +1,38 @@
+name: 'GitHub City Skyline Generator'
+description: 'Transforms your GitHub contribution graph into a 3D isometric city skyline.'
+author: 'Haruko386'
+
+inputs:
+  github_token:
+    description: 'Personal Access Token for fetching contributions'
+    required: true
+  theme:
+    description: 'Theme of the city (e.g., github, cityNight)'
+    required: false
+    default: 'github'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '22'
+        
+    - name: Install Dependencies
+      working-directory: ${{ github.action_path }}
+      run: npm install
+      shell: bash
+
+    - name: Run Generator
+      working-directory: ${{ github.action_path }}
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+        GITHUB_USERNAME: ${{ github.repository_owner }}
+        THEME: ${{ inputs.theme }}
+      run: node index.js
+      shell: bash
+
+    - name: Output Result
+      run: mv ${{ github.action_path }}/city.svg ${{ github.workspace }}/city.svg
+      shell: bash
