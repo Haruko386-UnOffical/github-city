@@ -3,7 +3,7 @@ import fetchContributions from "./src/github/fetchContributions.js";
 import createHeightMap from "./src/city/heightmap.js";
 import renderCity from "./src/city/renderCity.js";
 
-const themeName = process.env.THEME || "cityNight"; 
+const themeName = process.env.THEME || "github"; // Set the theme name via an environment variable, defaulting to "github"
 
 let theme;
 try {

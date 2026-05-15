@@ -17,6 +17,9 @@ export default function renderCity(heightMap, theme) {
     }
 
     const defsBlock = theme.defs ? `<defs>${theme.defs}</defs>` : "";
+    const extraBack = theme.extraBackground ? theme.extraBackground(buildings) : "";
+    const extraFront = theme.extraForeground ? theme.extraForeground(buildings) : "";
+    const globalOverlay = theme.globalOverlay ? theme.globalOverlay() : "";
 
     return `
 <svg
@@ -31,8 +34,14 @@ export default function renderCity(heightMap, theme) {
     />
 
     <g transform="translate(140, 100)">
+        ${extraBack}
+        
         ${svgBuildings}
+        
+        ${extraFront}
     </g>
+    
+    ${globalOverlay}
 </svg>
 `;
 }
